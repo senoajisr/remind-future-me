@@ -12,7 +12,7 @@
         android:id="@+id/titleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/purple_500"
+        android:background="?attr/colorPrimary"
         android:includeFontPadding="false"
         android:paddingLeft="3dp"
         android:paddingTop="2dp"
