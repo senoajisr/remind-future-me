@@ -7,7 +7,7 @@ import org.d3if3109.mobpro1.databinding.ReminderItemBinding
 
 
 class ReminderAdapter(items: MutableList<Reminder>) : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
-    var recycler_items: MutableList<Reminder> = items
+    var recyclerItems: MutableList<Reminder> = items
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -16,27 +16,27 @@ class ReminderAdapter(items: MutableList<Reminder>) : RecyclerView.Adapter<Remin
     }
 
     fun updateData(new_items: MutableList<Reminder>) {
-        recycler_items.clear()
-        recycler_items.addAll(new_items)
+        recyclerItems.clear()
+        recyclerItems.addAll(new_items)
         notifyDataSetChanged()
     }
 
     fun addItem(position: Int, reminder: Reminder) {
-        recycler_items.add(position, reminder)
+        recyclerItems.add(position, reminder)
         notifyItemInserted(position)
     }
 
     fun removeItem(position: Int) {
-        recycler_items.removeAt(position)
+        recyclerItems.removeAt(position)
         notifyItemRemoved(position)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(recycler_items[position])
+        holder.bind(recyclerItems[position])
     }
 
     override fun getItemCount(): Int {
-        return recycler_items.size
+        return recyclerItems.size
     }
 
     class ViewHolder(private val binding: ReminderItemBinding): RecyclerView.ViewHolder(binding.root) {
