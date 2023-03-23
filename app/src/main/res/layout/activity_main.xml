@@ -18,6 +18,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            app:errorIconDrawable="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -36,6 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            app:errorIconDrawable="@null"
             app:layout_constraintEnd_toEndOf="@+id/titleTextInputLayout"
             app:layout_constraintStart_toStartOf="@+id/titleTextInputLayout"
             app:layout_constraintTop_toBottomOf="@+id/titleTextInputLayout">
