@@ -1,6 +1,7 @@
 package org.d3if3109.mobpro1
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if3109.mobpro1.databinding.ReminderItemBinding
@@ -21,7 +22,7 @@ class ReminderAdapter(items: MutableList<Reminder>) : RecyclerView.Adapter<Remin
         notifyDataSetChanged()
     }
 
-    fun addItem(position: Int, reminder: Reminder) {
+    fun addItem(reminder: Reminder, position: Int) {
         recyclerItems.add(position, reminder)
         notifyItemInserted(position)
     }

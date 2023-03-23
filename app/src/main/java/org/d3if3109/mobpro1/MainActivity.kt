@@ -2,12 +2,11 @@ package org.d3if3109.mobpro1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
 import org.d3if3109.mobpro1.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private var reminders: MutableList<Reminder> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,9 +15,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         with(binding.reminderRecyclerView) {
-            addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
-            adapter = ReminderAdapter(getDummyReminderData())
-            setHasFixedSize(true)
+            adapter = ReminderAdapter(reminders)
+        }
+
+        binding.addButton.setOnClickListener { onAddButtonClicked() }
+    }
+
+    private fun onAddButtonClicked() {
+        val title: String = binding.titleTextInput.text.toString()
+        val description: String = binding.descriptionTextInput.text.toString()
+
+        if (title == "") {
+            binding.titleTextInputLayout.error = "Title cannot be empty"
+            return
+        }
+
+        binding.titleTextInputLayout.error = ""
+        reminders.add(0, Reminder(title, description))
+
+        with(binding.reminderRecyclerView) {
+            adapter!!.notifyItemInserted(0)
         }
     }
 
