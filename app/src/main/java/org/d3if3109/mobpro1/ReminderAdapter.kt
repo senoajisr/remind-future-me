@@ -43,6 +43,11 @@ class ReminderAdapter(items: MutableList<Reminder>) : RecyclerView.Adapter<Remin
     class ViewHolder(private val binding: ReminderItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(reminder: Reminder) = with(binding) {
             titleTextView.text = reminder.title
+
+            if (reminder.description == "") {
+                descriptionTextView.visibility = View.GONE
+            }
+
             descriptionTextView.text = reminder.description
         }
     }
