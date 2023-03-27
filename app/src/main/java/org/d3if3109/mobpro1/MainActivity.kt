@@ -1,16 +1,22 @@
 package org.d3if3109.mobpro1
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import org.d3if3109.mobpro1.databinding.ActivityMainBinding
+import java.util.Calendar
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var reminders: MutableList<Reminder> = mutableListOf()
+    private var mYear: Int = 0
+    private var mMonth: Int = 0
+    private var mDay: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +29,27 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.addButton.setOnClickListener { onAddButtonClicked() }
+        binding.dueDateButton.setOnClickListener { onDateTextInputClicked() }
 
         addReminderItemSwipeRightAction()
+    }
+
+
+    // By https://www.techypid.com/datepicker-dialog-click-on-edittext-in-android/
+    private fun onDateTextInputClicked() {
+        val calendar: Calendar = Calendar.getInstance()
+        mYear = calendar.get(Calendar.YEAR)
+        mMonth = calendar.get(Calendar.MONTH)
+        mDay = calendar.get(Calendar.DAY_OF_MONTH)
+        //show dialog
+        val datePickerDialog = DatePickerDialog(this,
+            { _, year, month, dayOfMonth -> binding.dueDateButton.text =
+                resources.getString(R.string.date_format, dayOfMonth.toString(), month + 1, year) },
+            mYear,
+            mMonth,
+            mDay
+        )
+        datePickerDialog.show()
     }
 
 

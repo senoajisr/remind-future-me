@@ -30,6 +30,7 @@
                 android:hint="@string/title"
                 android:inputType="text"
                 android:singleLine="true" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -53,15 +54,25 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/addButton"
+            android:id="@+id/dueDateButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
-            android:text="@string/add"
-            app:layout_constraintEnd_toEndOf="@+id/titleTextInputLayout"
-            app:layout_constraintStart_toStartOf="@+id/titleTextInputLayout"
+            android:text="@string/due_date"
+            app:layout_constraintEnd_toEndOf="@+id/descriptionTextInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/descriptionTextInputLayout"
             app:layout_constraintTop_toBottomOf="@+id/descriptionTextInputLayout" />
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/add"
+            app:layout_constraintEnd_toEndOf="@+id/dueDateButton"
+            app:layout_constraintStart_toStartOf="@+id/dueDateButton"
+            app:layout_constraintTop_toBottomOf="@+id/dueDateButton" />
 
         <View
             android:id="@+id/view"
