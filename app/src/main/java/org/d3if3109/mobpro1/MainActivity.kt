@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    // By https://www.techypid.com/datepicker-dialog-click-on-edittext-in-android/
+    // From https://www.techypid.com/datepicker-dialog-click-on-edittext-in-android/
     private fun onDateTextInputClicked() {
         val calendar: Calendar = Calendar.getInstance()
         mYear = calendar.get(Calendar.YEAR)
