@@ -14,9 +14,6 @@ import java.util.Calendar
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var reminders: MutableList<Reminder> = mutableListOf()
-    private var mYear: Int = 0
-    private var mMonth: Int = 0
-    private var mDay: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +35,9 @@ class MainActivity : AppCompatActivity() {
     // From https://www.techypid.com/datepicker-dialog-click-on-edittext-in-android/
     private fun onDateTextInputClicked() {
         val calendar: Calendar = Calendar.getInstance()
-        mYear = calendar.get(Calendar.YEAR)
-        mMonth = calendar.get(Calendar.MONTH)
-        mDay = calendar.get(Calendar.DAY_OF_MONTH)
+        var mYear: Int = calendar.get(Calendar.YEAR)
+        var mMonth: Int = calendar.get(Calendar.MONTH)
+        var mDay: Int = calendar.get(Calendar.DAY_OF_MONTH)
         //show dialog
         val datePickerDialog = DatePickerDialog(this,
             { _, year, month, dayOfMonth -> binding.dueDateButton.text =
@@ -91,14 +88,19 @@ class MainActivity : AppCompatActivity() {
     private fun onAddButtonClicked() {
         val title: String = binding.titleTextInput.text.toString()
         val description: String = binding.descriptionTextInput.text.toString()
+        var dueDate: String = binding.dueDateButton.text.toString()
 
         if (title == "") {
             binding.titleTextInputLayout.error = "Title cannot be empty"
             return
         }
 
+        if (dueDate == "Due Date") {
+            dueDate = ""
+        }
+
         binding.titleTextInputLayout.error = ""
-        reminders.add(0, Reminder(title, description))
+        reminders.add(0, Reminder(title, description, dueDate))
 
         with(binding.reminderRecyclerView) {
             adapter!!.notifyItemInserted(0)
@@ -107,9 +109,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun getDummyReminderData() : MutableList<Reminder> {
         return mutableListOf(
-            Reminder("Homework", "English homework at page 17"),
-            Reminder("Buy mobile data", ""),
-            Reminder("Project progress meeting", "Topics:\n- Major bugs\n- Minor Bugs"),
+            Reminder("Homework", "English homework at page 17", "10/10/1010"),
+            Reminder("Buy mobile data", "", ""),
+            Reminder("Project progress meeting", "Topics:\n- Major bugs\n- Minor Bugs", "20/20/2020"),
         )
     }
 

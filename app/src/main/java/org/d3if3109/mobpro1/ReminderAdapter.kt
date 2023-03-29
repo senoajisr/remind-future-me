@@ -48,7 +48,12 @@ class ReminderAdapter(items: MutableList<Reminder>) : RecyclerView.Adapter<Remin
                 descriptionTextView.visibility = View.GONE
             }
 
+            if (reminder.dueDate == "") {
+                dueDateTextView.visibility = View.GONE
+            }
+
             descriptionTextView.text = reminder.description
+            dueDateTextView.text = reminder.dueDate
         }
     }
 
