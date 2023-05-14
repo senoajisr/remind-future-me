@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -18,7 +19,12 @@ import java.util.Calendar
 
 class ShowReminderFragment : Fragment() {
     private lateinit var binding: FragmentShowReminderBinding
+
     private var reminders: MutableList<Reminder> = mutableListOf()
+
+    private val viewModel: ShowReminderViewModel by lazy {
+        ViewModelProvider(requireActivity())[ShowReminderViewModel::class.java]
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentShowReminderBinding.inflate(layoutInflater, container, false)
