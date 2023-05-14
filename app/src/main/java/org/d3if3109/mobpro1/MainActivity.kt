@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import org.d3if3109.mobpro1.databinding.ActivityMainBinding
+import org.d3if3109.mobpro1.model.Reminder
 import java.util.Calendar
 
 

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if3109.mobpro1.databinding.ReminderItemBinding
+import org.d3if3109.mobpro1.model.Reminder
 
 
 class ReminderAdapter(items: MutableList<Reminder>) : RecyclerView.Adapter<ReminderAdapter.ViewHolder>() {
