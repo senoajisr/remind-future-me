@@ -1,4 +1,4 @@
-package org.d3if3109.mobpro1
+package org.d3if3109.mobpro1.adapter
 
 import android.view.LayoutInflater
 import android.view.View
