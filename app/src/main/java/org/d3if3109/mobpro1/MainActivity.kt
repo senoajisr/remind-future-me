@@ -2,7 +2,6 @@ package org.d3if3109.mobpro1
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -35,9 +34,9 @@ class MainActivity : AppCompatActivity() {
     // From https://www.techypid.com/datepicker-dialog-click-on-edittext-in-android/
     private fun onDateTextInputClicked() {
         val calendar: Calendar = Calendar.getInstance()
-        var mYear: Int = calendar.get(Calendar.YEAR)
-        var mMonth: Int = calendar.get(Calendar.MONTH)
-        var mDay: Int = calendar.get(Calendar.DAY_OF_MONTH)
+        val mYear: Int = calendar.get(Calendar.YEAR)
+        val mMonth: Int = calendar.get(Calendar.MONTH)
+        val mDay: Int = calendar.get(Calendar.DAY_OF_MONTH)
         //show dialog
         val datePickerDialog = DatePickerDialog(this,
             { _, year, month, dayOfMonth -> binding.dueDateButton.text =
@@ -75,15 +74,14 @@ class MainActivity : AppCompatActivity() {
                     Snackbar.LENGTH_LONG
                 )
                     .setAction(
-                        "Undo",
-                        View.OnClickListener {
-                            reminders.add(position, deletedReminder)
-                            adapter!!.notifyItemInserted(position)
-                        }).show()
+                        "Undo"
+                    ) {
+                        reminders.add(position, deletedReminder)
+                        adapter.notifyItemInserted(position)
+                    }.show()
             }
         }).attachToRecyclerView(binding.reminderRecyclerView)
     }
-
 
     private fun onAddButtonClicked() {
         val title: String = binding.titleTextInput.text.toString()
@@ -105,14 +103,6 @@ class MainActivity : AppCompatActivity() {
         with(binding.reminderRecyclerView) {
             adapter!!.notifyItemInserted(0)
         }
-    }
-
-    private fun getDummyReminderData() : MutableList<Reminder> {
-        return mutableListOf(
-            Reminder("Homework", "English homework at page 17", "10/10/1010"),
-            Reminder("Buy mobile data", "", ""),
-            Reminder("Project progress meeting", "Topics:\n- Major bugs\n- Minor Bugs", "20/20/2020"),
-        )
     }
 
 }
