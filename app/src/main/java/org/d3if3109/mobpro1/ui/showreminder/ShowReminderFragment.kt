@@ -13,17 +13,19 @@ import com.google.android.material.snackbar.Snackbar
 import org.d3if3109.mobpro1.R
 import org.d3if3109.mobpro1.adapter.ReminderAdapter
 import org.d3if3109.mobpro1.databinding.FragmentShowReminderBinding
-import org.d3if3109.mobpro1.model.Reminder
+import org.d3if3109.mobpro1.db.ReminderDb
+import org.d3if3109.mobpro1.db.ReminderEntity
 import java.util.Calendar
 
 
 class ShowReminderFragment : Fragment() {
     private lateinit var binding: FragmentShowReminderBinding
-
-    private var reminders: MutableList<Reminder> = mutableListOf()
+    private lateinit var reminderAdapter: ReminderAdapter
 
     private val viewModel: ShowReminderViewModel by lazy {
-        ViewModelProvider(requireActivity())[ShowReminderViewModel::class.java]
+        val reminderDb = ReminderDb.getInstance(requireContext())
+        val factory = ShowReminderViewModelFactory(reminderDb.dao)
+        ViewModelProvider(this, factory)[ShowReminderViewModel::class.java]
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -34,8 +36,16 @@ class ShowReminderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        reminderAdapter = ReminderAdapter()
+
         with(binding.reminderRecyclerView) {
-            adapter = ReminderAdapter(reminders)
+            adapter = reminderAdapter
+            // setHasFixedSize(true)
+        }
+
+        viewModel.reminderData.observe(viewLifecycleOwner) {
+            if (it == null) return@observe
+            reminderAdapter.submitList(it)
         }
 
         binding.addButton.setOnClickListener { onAddButtonClicked() }
@@ -83,24 +93,23 @@ class ShowReminderFragment : Fragment() {
 
             // From https://www.geeksforgeeks.org/android-swipe-to-delete-and-undo-in-recyclerview-with-kotlin/
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val adapter = binding.reminderRecyclerView.adapter
                 val position = viewHolder.adapterPosition
-                val deletedReminder: Reminder = reminders[position]
+                val deletedReminder: ReminderEntity? = viewModel.reminderData.value?.get(position)
 
-                reminders.removeAt(position)
-                adapter!!.notifyItemRemoved(position)
+                if (deletedReminder != null) {
+                    viewModel.removeReminderAt(deletedReminder.id)
 
-                Snackbar.make(
-                    binding.reminderRecyclerView,
-                    "Deleted " + deletedReminder.title,
-                    Snackbar.LENGTH_LONG
-                )
-                    .setAction(
-                        "Undo"
-                    ) {
-                        reminders.add(position, deletedReminder)
-                        adapter.notifyItemInserted(position)
-                    }.show()
+                    Snackbar.make(
+                        binding.reminderRecyclerView,
+                        "Deleted " + deletedReminder.title,
+                        Snackbar.LENGTH_LONG
+                    )
+                        .setAction(
+                            "Undo"
+                        ) {
+                            viewModel.insertReminderEntity(deletedReminder)
+                        }.show()
+                }
             }
         }).attachToRecyclerView(binding.reminderRecyclerView)
     }
@@ -120,11 +129,8 @@ class ShowReminderFragment : Fragment() {
         }
 
         binding.titleTextInputLayout.error = ""
-        reminders.add(0, Reminder(title, description, dueDate))
 
-        with(binding.reminderRecyclerView) {
-            adapter!!.notifyItemInserted(0)
-        }
+        viewModel.insertReminder(title, description, dueDate)
     }
 
 }
