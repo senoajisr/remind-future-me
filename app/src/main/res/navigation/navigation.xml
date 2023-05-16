@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/showReminderFragment"
         android:name="org.d3if3109.mobpro1.ui.showreminder.ShowReminderFragment"
-        android:label="fragment_show_reminder"
-        tools:layout="@layout/fragment_show_reminder" >
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_show_reminder">
         <action
             android:id="@+id/action_showReminderFragment_to_addReminderFragment"
             app:destination="@id/addReminderFragment" />
@@ -17,6 +17,6 @@
     <fragment
         android:id="@+id/addReminderFragment"
         android:name="org.d3if3109.mobpro1.ui.addreminder.AddReminderFragment"
-        android:label="fragment_add_reminder"
+        android:label="@string/add"
         tools:layout="@layout/fragment_add_reminder" />
 </navigation>
