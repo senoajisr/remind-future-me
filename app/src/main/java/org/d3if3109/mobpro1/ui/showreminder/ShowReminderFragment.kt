@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import org.d3if3109.mobpro1.R
 import org.d3if3109.mobpro1.adapter.ReminderAdapter
 import org.d3if3109.mobpro1.databinding.FragmentShowReminderBinding
 import org.d3if3109.mobpro1.db.ReminderDb
@@ -45,6 +47,8 @@ class ShowReminderFragment : Fragment() {
             reminderAdapter.submitList(it)
         }
 
+        binding.addReminderButton.setOnClickListener { onAddReminderButtonClicked(it) }
+
         addReminderItemSwipeRightAction()
     }
 
@@ -80,5 +84,9 @@ class ShowReminderFragment : Fragment() {
                 }
             }
         }).attachToRecyclerView(binding.reminderRecyclerView)
+    }
+
+    private fun onAddReminderButtonClicked(it: View) {
+        it.findNavController().navigate(R.id.action_showReminderFragment_to_addReminderFragment)
     }
 }

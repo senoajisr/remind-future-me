@@ -9,7 +9,7 @@ import org.d3if3109.mobpro1.db.ReminderDao
 import org.d3if3109.mobpro1.db.ReminderEntity
 
 class AddReminderViewModel(private val reminderDao: ReminderDao) : ViewModel() {
-    
+
     fun insertReminder(title: String, description: String, dueDate: String) {
         val entity = ReminderEntity(
             title = title,

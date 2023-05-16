@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/showReminderFragment">
+
+    <fragment
+        android:id="@+id/showReminderFragment"
+        android:name="org.d3if3109.mobpro1.ui.showreminder.ShowReminderFragment"
+        android:label="fragment_show_reminder"
+        tools:layout="@layout/fragment_show_reminder" >
+        <action
+            android:id="@+id/action_showReminderFragment_to_addReminderFragment"
+            app:destination="@id/addReminderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addReminderFragment"
+        android:name="org.d3if3109.mobpro1.ui.addreminder.AddReminderFragment"
+        android:label="fragment_add_reminder"
+        tools:layout="@layout/fragment_add_reminder" />
+</navigation>
