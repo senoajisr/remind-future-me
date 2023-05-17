@@ -39,7 +39,6 @@ class ShowReminderFragment : Fragment() {
 
         with(binding.reminderRecyclerView) {
             adapter = reminderAdapter
-            setHasFixedSize(true)
         }
 
         viewModel.reminderData.observe(viewLifecycleOwner) {
