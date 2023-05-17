@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import org.d3if3109.mobpro1.R
 import org.d3if3109.mobpro1.databinding.FragmentAddReminderBinding
 import org.d3if3109.mobpro1.db.ReminderDb
@@ -29,7 +30,7 @@ class AddReminderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.addButton.setOnClickListener { onAddButtonClicked() }
+        binding.addButton.setOnClickListener { onAddButtonClicked(it) }
         binding.dueDateButton.setOnClickListener { onDateTextInputClicked() }
     }
 
@@ -58,7 +59,7 @@ class AddReminderFragment : Fragment() {
         }?.show()
     }
 
-    private fun onAddButtonClicked() {
+    private fun onAddButtonClicked(it: View) {
         val title: String = binding.titleTextInput.text.toString()
         val description: String = binding.descriptionTextInput.text.toString()
         var dueDate: String = binding.dueDateButton.text.toString()
@@ -75,5 +76,7 @@ class AddReminderFragment : Fragment() {
         binding.titleTextInputLayout.error = ""
 
         viewModel.insertReminder(title, description, dueDate)
+
+        it.findNavController().navigateUp()
     }
 }
