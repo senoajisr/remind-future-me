@@ -15,4 +15,7 @@ interface ReminderDao {
 
     @Query("DELETE FROM reminder WHERE id = :id")
     fun deleteById(id: Long)
+
+    @Query("SELECT * FROM reminder WHERE id=:id")
+    fun getReminderById(id: Long): LiveData<ReminderEntity>
 }

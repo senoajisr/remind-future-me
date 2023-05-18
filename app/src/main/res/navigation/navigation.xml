@@ -13,10 +13,22 @@
         <action
             android:id="@+id/action_showReminderFragment_to_addReminderFragment"
             app:destination="@id/addReminderFragment" />
+        <action
+            android:id="@+id/action_showReminderFragment_to_viewReminderFragment"
+            app:destination="@id/viewReminderFragment" />
     </fragment>
     <fragment
         android:id="@+id/addReminderFragment"
         android:name="org.d3if3109.mobpro1.ui.addreminder.AddReminderFragment"
         android:label="@string/add"
         tools:layout="@layout/fragment_add_reminder" />
+    <fragment
+        android:id="@+id/viewReminderFragment"
+        android:name="org.d3if3109.mobpro1.ui.viewreminder.ViewReminderFragment"
+        android:label="fragment_view_reminder"
+        tools:layout="@layout/fragment_view_reminder" >
+        <argument
+            android:name="reminderId"
+            app:argType="long" />
+    </fragment>
 </navigation>

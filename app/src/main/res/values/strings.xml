@@ -5,4 +5,7 @@
     <string name="add">Add</string>
     <string name="due_date">Due Date</string>
     <string name="date_format" translatable="false">%s/%d/%d</string>
+    <string name="share">Share</string>
+    <string name="delete">Delete</string>
+    <string name="share_template">Reminder: %1$s\nDue Date: %2$s\nDescription: %3$s</string>
 </resources>

@@ -3,11 +3,13 @@ package org.d3if3109.mobpro1.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if3109.mobpro1.databinding.ReminderItemBinding
 import org.d3if3109.mobpro1.db.ReminderEntity
+import org.d3if3109.mobpro1.ui.showreminder.ShowReminderFragmentDirections
 
 
 class ReminderAdapter : ListAdapter<ReminderEntity, ReminderAdapter.ViewHolder>(DIFF_CALLBACK) {
@@ -35,6 +37,11 @@ class ReminderAdapter : ListAdapter<ReminderEntity, ReminderAdapter.ViewHolder>(
 
             descriptionTextView.text = reminder.description
             dueDateTextView.text = reminder.dueDate
+
+            root.setOnClickListener {
+                val action = ShowReminderFragmentDirections.actionShowReminderFragmentToViewReminderFragment(reminder.id)
+                it.findNavController().navigate(action)
+            }
         }
     }
 
