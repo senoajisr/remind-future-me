@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.d3if3109.mobpro1.R
 import org.d3if3109.mobpro1.databinding.FragmentViewReminderBinding
 import org.d3if3109.mobpro1.db.ReminderDb
@@ -52,10 +53,17 @@ class ViewReminderFragment : Fragment() {
 
     private fun onDeleteButtonClicked(view: View) {
         reminderData.observe(viewLifecycleOwner) {
-            viewModel.removeReminderById(it.id)
+            MaterialAlertDialogBuilder(requireContext())
+                .setMessage(R.string.confirm_deletion)
+                .setPositiveButton(getString(R.string.delete)) { _, _ ->
+                    viewModel.removeReminderById(it.id)
+                    view.findNavController().navigateUp()
+                }
+                .setNegativeButton(getString(R.string.cancled)) { dialog, _ ->
+                    dialog.cancel()
+                }
+                .show()
         }
-
-        view.findNavController().navigateUp()
     }
 
     private fun onShareButtonClicked() {
