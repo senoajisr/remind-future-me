@@ -12,14 +12,19 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 import org.d3if3109.mobpro1.R
 import org.d3if3109.mobpro1.adapter.ReminderAdapter
+import org.d3if3109.mobpro1.data.SettingsDataStore
+import org.d3if3109.mobpro1.data.dataStore
 import org.d3if3109.mobpro1.databinding.FragmentShowReminderBinding
 import org.d3if3109.mobpro1.db.ReminderDb
 import org.d3if3109.mobpro1.db.ReminderEntity
@@ -29,6 +34,8 @@ class ShowReminderFragment : Fragment() {
     private lateinit var binding: FragmentShowReminderBinding
     private lateinit var reminderAdapter: ReminderAdapter
     private var isLinearLayout = true
+
+    private val settingsDataStore: SettingsDataStore by lazy { SettingsDataStore(requireContext().dataStore) }
 
     private val viewModel: ShowReminderViewModel by lazy {
         val reminderDb = ReminderDb.getInstance(requireContext())
@@ -48,9 +55,10 @@ class ShowReminderFragment : Fragment() {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 return when (menuItem.itemId) {
                     R.id.menuItemShowReminderSwitchLayout -> {
-                        isLinearLayout = !isLinearLayout
-                        setLayout()
-                        setIcon(menuItem)
+                        lifecycleScope.launch {
+                            settingsDataStore.saveLayout(!isLinearLayout, requireContext())
+                        }
+
                         true
                     }
                     else -> false
@@ -68,6 +76,12 @@ class ShowReminderFragment : Fragment() {
 
         with(binding.reminderRecyclerView) {
             adapter = reminderAdapter
+        }
+
+        settingsDataStore.preferenceFlow.asLiveData().observe(viewLifecycleOwner) {
+            isLinearLayout = it
+            setLayout()
+            activity?.invalidateOptionsMenu()
         }
 
         viewModel.reminderData.observe(viewLifecycleOwner) {
