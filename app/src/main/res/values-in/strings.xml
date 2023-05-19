@@ -10,4 +10,5 @@
     <string name="share_template">Pengingat: %1$s\nTengat Waktu: %2$s\nDeskripsi: %3$s</string>
     <string name="confirm_deletion">Konfirmasi penghapusan</string>
     <string name="cancled">Batal</string>
+    <string name="switch_layout">Tukar tampilan</string>
 </resources>
