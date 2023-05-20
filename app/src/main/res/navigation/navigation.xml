@@ -25,8 +25,8 @@
     <fragment
         android:id="@+id/viewReminderFragment"
         android:name="org.d3if3109.mobpro1.ui.viewreminder.ViewReminderFragment"
-        android:label="fragment_view_reminder"
-        tools:layout="@layout/fragment_view_reminder" >
+        android:label="@string/reminder"
+        tools:layout="@layout/fragment_view_reminder">
         <argument
             android:name="reminderId"
             app:argType="long" />
