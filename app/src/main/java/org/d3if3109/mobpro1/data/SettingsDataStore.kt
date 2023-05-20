@@ -16,13 +16,13 @@ private const val PREFERENCES_NAME = "preferences"
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PREFERENCES_NAME)
 
 class SettingsDataStore(prefDataStore: DataStore<Preferences>) {
-    private val IS_LINEAR_LAYOUT = booleanPreferencesKey("is_linear_layout")
+    private val isLinearLayoutKey = booleanPreferencesKey("is_linear_layout")
 
     val preferenceFlow: Flow<Boolean> = prefDataStore.data
         .catch { emit(emptyPreferences()) }
-        .map { it[IS_LINEAR_LAYOUT] ?: true }
+        .map { it[isLinearLayoutKey] ?: true }
 
     suspend fun saveLayout(isLinearLayout: Boolean, context: Context) {
-        context.dataStore.edit { it[IS_LINEAR_LAYOUT] = isLinearLayout }
+        context.dataStore.edit { it[isLinearLayoutKey] = isLinearLayout }
     }
 }
