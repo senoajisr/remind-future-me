@@ -9,6 +9,6 @@
     <string name="delete">Delete</string>
     <string name="share_template">Reminder: %1$s\nDue Date: %2$s\nDescription: %3$s</string>
     <string name="confirm_deletion">Confirm the deletion</string>
-    <string name="cancled">Cancled</string>
+    <string name="cancel">Cancel</string>
     <string name="switch_layout">Switch layout</string>
 </resources>

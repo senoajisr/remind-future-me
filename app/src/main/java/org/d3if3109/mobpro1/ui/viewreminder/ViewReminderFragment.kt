@@ -59,7 +59,7 @@ class ViewReminderFragment : Fragment() {
                     viewModel.removeReminderById(it.id)
                     view.findNavController().navigateUp()
                 }
-                .setNegativeButton(getString(R.string.cancled)) { dialog, _ ->
+                .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                     dialog.cancel()
                 }
                 .show()
