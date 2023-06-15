@@ -31,11 +31,21 @@ class ShowReminderViewModel(private val reminderDao: ReminderDao) : ViewModel() 
         }
     }
 
+    private fun insertReminder(title: String, description: String, dueDate: String) {
+        val entity = ReminderEntity(
+            title = title,
+            description = description,
+            dueDate = dueDate,
+        )
+
+        insertReminderEntity(entity)
+    }
+
     private fun retrieveData() {
         viewModelScope.launch (Dispatchers.IO) {
             try {
-                val result = ReminderApi.service.getReminder()
-                Log.d("MainViewModel", "Success: $result")
+                val reminder = ReminderApi.service.getReminder()
+                insertReminder(reminder.title, reminder.description, reminder.dueDate)
             } catch (e: Exception) {
                 Log.d("MainViewModel", "Failure: ${e.message}")
             }
