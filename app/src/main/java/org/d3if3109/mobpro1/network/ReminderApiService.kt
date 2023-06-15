@@ -5,7 +5,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 
 private const val BASE_URL = "https://raw.githubusercontent.com/" +
-        "senoajisr/remind-future-me/static-api/welcome.json"
+        "senoajisr/remind-future-me/static-api/"
 private val retrofit = Retrofit.Builder()
     .addConverterFactory(ScalarsConverterFactory.create())
     .baseUrl(BASE_URL)
