@@ -13,4 +13,5 @@
     <string name="switch_layout">Tukar tampilan</string>
     <string name="reminder">Pengingat</string>
     <string name="welcome_image">Foto selamat datang</string>
+    <string name="network_error">Tidak dapat mengambil data selamat datang</string>
 </resources>

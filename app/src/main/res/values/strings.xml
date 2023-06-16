@@ -13,4 +13,5 @@
     <string name="switch_layout">Switch layout</string>
     <string name="reminder">Reminder</string>
     <string name="welcome_image">Welcome image</string>
+    <string name="network_error">Unable to fetch welcome data</string>
 </resources>

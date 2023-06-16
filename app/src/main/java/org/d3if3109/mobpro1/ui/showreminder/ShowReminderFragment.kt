@@ -90,6 +90,10 @@ class ShowReminderFragment : Fragment() {
             reminderAdapter.submitList(it)
         }
 
+        viewModel.status.observe(viewLifecycleOwner) {
+            updateProgressBar(it)
+        }
+
         binding.addReminderButton.setOnClickListener { onAddReminderButtonClicked(it) }
 
         addReminderItemSwipeRightAction()
@@ -100,6 +104,20 @@ class ShowReminderFragment : Fragment() {
             .into(binding.welcomeImageView)
     }
 
+    private fun updateProgressBar(status: ShowReminderViewModel.ApiStatus) {
+        when (status) {
+            ShowReminderViewModel.ApiStatus.LOADING -> {
+                binding.progressBar.visibility = View.VISIBLE
+            }
+            ShowReminderViewModel.ApiStatus.SUCCESS -> {
+                binding.progressBar.visibility = View.GONE
+            }
+            ShowReminderViewModel.ApiStatus.FAILED -> {
+                binding.progressBar.visibility = View.GONE
+                binding.networkError.visibility = View.VISIBLE
+            }
+        }
+    }
 
     private fun addReminderItemSwipeRightAction() {
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {

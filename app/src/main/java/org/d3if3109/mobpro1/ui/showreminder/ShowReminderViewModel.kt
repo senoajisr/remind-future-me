@@ -1,6 +1,7 @@
 package org.d3if3109.mobpro1.ui.showreminder
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -12,6 +13,7 @@ import org.d3if3109.mobpro1.network.ReminderApi
 
 class ShowReminderViewModel(private val reminderDao: ReminderDao) : ViewModel() {
     val reminderData = reminderDao.getAllReminder()
+    val status = MutableLiveData<ApiStatus>()
 
     init {
         retrieveData()
@@ -42,13 +44,18 @@ class ShowReminderViewModel(private val reminderDao: ReminderDao) : ViewModel() 
     }
 
     private fun retrieveData() {
+        status.postValue(ApiStatus.LOADING)
         viewModelScope.launch (Dispatchers.IO) {
             try {
                 val reminder = ReminderApi.service.getReminder()
                 insertReminder(reminder.title, reminder.description, reminder.dueDate)
+                status.postValue(ApiStatus.SUCCESS)
             } catch (e: Exception) {
-                Log.d("MainViewModel", "Failure: ${e.message}")
+                Log.d("ShowReminderViewModel", "Failure: ${e.message}")
+                status.postValue(ApiStatus.FAILED)
             }
         }
     }
+
+    enum class ApiStatus { LOADING, SUCCESS, FAILED }
 }
