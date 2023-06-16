@@ -14,4 +14,8 @@
     <string name="reminder">Pengingat</string>
     <string name="welcome_image">Foto selamat datang</string>
     <string name="network_error">Tidak dapat mengambil data selamat datang</string>
+    <string name="channel_name">Pengingat</string>
+    <string name="channel_description">Supaya kau tidak lupa menambahkan pengingat</string>
+    <string name="notification_title">Pengingat</string>
+    <string name="notification_text">Jangan lupa menambahkan pengingat!</string>
 </resources>

@@ -1,5 +1,8 @@
 package org.d3if3109.mobpro1.ui.showreminder
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -7,6 +10,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -22,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import org.d3if3109.mobpro1.MainActivity
 import org.d3if3109.mobpro1.R
 import org.d3if3109.mobpro1.adapter.ReminderAdapter
 import org.d3if3109.mobpro1.data.SettingsDataStore
@@ -102,6 +108,12 @@ class ShowReminderFragment : Fragment() {
             .load("https://cdn.pixabay.com/photo/2015/05/28/09/08/hyacinth-787758_960_720.jpg")
             .error(R.drawable.baseline_broken_image_24)
             .into(binding.welcomeImageView)
+
+        viewModel.scheduleUpdater(requireActivity().application)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestNotificationPermission()
+        }
     }
 
     private fun updateProgressBar(status: ShowReminderViewModel.ApiStatus) {
@@ -169,4 +181,20 @@ class ShowReminderFragment : Fragment() {
 
         menuItem.icon = ContextCompat.getDrawable(requireContext(), iconId)
     }
+
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun requestNotificationPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                MainActivity.PERMISSION_REQUEST_CODE
+            )
+        }
+    }
+
 }

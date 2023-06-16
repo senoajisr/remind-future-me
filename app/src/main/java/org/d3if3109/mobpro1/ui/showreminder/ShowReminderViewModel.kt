@@ -1,15 +1,21 @@
 package org.d3if3109.mobpro1.ui.showreminder
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.d3if3109.mobpro1.db.ReminderDao
 import org.d3if3109.mobpro1.db.ReminderEntity
 import org.d3if3109.mobpro1.network.ReminderApi
+import org.d3if3109.mobpro1.network.UpdateWorker
+import java.util.concurrent.TimeUnit
 
 class ShowReminderViewModel(private val reminderDao: ReminderDao) : ViewModel() {
     val reminderData = reminderDao.getAllReminder()
@@ -58,4 +64,15 @@ class ShowReminderViewModel(private val reminderDao: ReminderDao) : ViewModel() 
     }
 
     enum class ApiStatus { LOADING, SUCCESS, FAILED }
+
+    fun scheduleUpdater(app: Application) {
+        val request = OneTimeWorkRequestBuilder<UpdateWorker>()
+            .setInitialDelay(1, TimeUnit.MINUTES)
+            .build()
+        WorkManager.getInstance(app).enqueueUniqueWork(
+            UpdateWorker.WORK_NAME,
+            ExistingWorkPolicy.APPEND,
+            request
+        )
+    }
 }
