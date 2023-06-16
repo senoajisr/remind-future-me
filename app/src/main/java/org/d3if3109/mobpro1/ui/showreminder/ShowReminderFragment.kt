@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.d3if3109.mobpro1.R
@@ -92,6 +93,11 @@ class ShowReminderFragment : Fragment() {
         binding.addReminderButton.setOnClickListener { onAddReminderButtonClicked(it) }
 
         addReminderItemSwipeRightAction()
+
+        Glide.with(binding.welcomeImageView.context)
+            .load("https://cdn.pixabay.com/photo/2015/05/28/09/08/hyacinth-787758_960_720.jpg")
+            .error(R.drawable.baseline_broken_image_24)
+            .into(binding.welcomeImageView)
     }
 
 
